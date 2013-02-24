@@ -1,27 +1,27 @@
 #/usr/bin/perl -w
-@words = qw(camel llama alpaca);
+%words = qw(
+    fred camel
+    barney llama
+    betty alpaca
+    wilma alpaca
+ );
+
+
+
 print "What is your name? ";
 $name = <STDIN>;
 chomp ($name);
-if ($name eq "Randal") {
+if ($name =~ /^randal\b/i) {
    print "Hello, Randal! How good of you to be here!\n";
 } else {
    print "Hello, $name!\n";
+   $secretword = $words{$name};
    print "What is your seceret word? ";
    $guess = <STDIN>;
    chomp ($guess);
-   $i =0; 
-   $correct ="maybe";
-   while ($correct eq "maybe") {
-      if ($words[$i] eq $guess) {
-         $correct ="yes";
-      }elsif ($i < 2) {
-        $i = $i +1;
-      } else {
-        print "Worng, try again. What is the secret word? ";
-        $guess = <STDIN>;
-        chomp ($guess);
-        $i = 0;
-      }
-   }
-}
+   while ($guess ne $secretword) {
+      print "Wrong, try again. What is the secretword? ";
+      $guess = <STDIN>;
+      chomp ($guess);
+    }
+} 
